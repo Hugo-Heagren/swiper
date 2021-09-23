@@ -916,6 +916,13 @@ will be called for each element of this list.")
       (ivy-set-action actions)))
   (ivy-shrink-after-dispatching))
 
+(defun ivy-become-function (func)
+  "Replace current ivy session with FUNC, with current ivy input.
+
+FUNC should take a single symbol argument."
+  (let ((input (ivy--input)))
+    (ivy-quit-and-run (funcall func input))))
+
 (defun ivy-build-tramp-name (x)
   "Reconstruct X into a path.
 Is is a cons cell, related to `tramp-get-completion-function'."
