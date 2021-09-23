@@ -349,6 +349,7 @@ Remove DEF from `counsel-M-x' list."
     (ivy-define-key map (kbd "C-o") 'hydra-ivy/body)
     (ivy-define-key map (kbd "M-o") 'ivy-dispatching-done)
     (ivy-define-key map (kbd "C-M-o") 'ivy-dispatching-call)
+    (ivy-define-key map (kbd "C-c C-x") 'ivy-become-any)
     (ivy-define-key map [remap kill-line] 'ivy-kill-line)
     (ivy-define-key map [remap kill-whole-line] 'ivy-kill-whole-line)
     (ivy-define-key map (kbd "S-SPC") 'ivy-restrict-to-matches)
@@ -922,6 +923,13 @@ will be called for each element of this list.")
 FUNC should take a single symbol argument."
   (let ((input (ivy--input)))
     (ivy-quit-and-run (funcall func input))))
+
+(defun ivy-become-any (keys)
+  "Replace ivy session with the function run by KEYS, retaining input.
+
+When run interactively, read keys with (interactive \"k\")."
+  (interactive "k")
+  (ivy-become-function (key-binding keys)))
 
 (defun ivy-build-tramp-name (x)
   "Reconstruct X into a path.
