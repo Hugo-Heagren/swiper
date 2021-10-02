@@ -350,6 +350,8 @@ Remove DEF from `counsel-M-x' list."
     (ivy-define-key map (kbd "M-o") 'ivy-dispatching-done)
     (ivy-define-key map (kbd "C-M-o") 'ivy-dispatching-call)
     (ivy-define-key map (kbd "C-c C-x") 'ivy-become-any)
+    (ivy-define-key map [remap counsel-find-file] 'ivy-become-counsel-find-file)
+    (ivy-define-key map (kbd "M-x") 'ivy-become-counsel-M-x)
     (ivy-define-key map [remap kill-line] 'ivy-kill-line)
     (ivy-define-key map [remap kill-whole-line] 'ivy-kill-whole-line)
     (ivy-define-key map (kbd "S-SPC") 'ivy-restrict-to-matches)
@@ -930,6 +932,13 @@ FUNC should take a single symbol argument."
 When run interactively, read keys with (interactive \"k\")."
   (interactive "k")
   (ivy-become-function (key-binding keys)))
+
+(defun ivy-become-counsel-find-file ()
+  (interactive)
+  (ivy-become-function 'counsel-find-file))
+(defun ivy-become-counsel-M-x ()
+  (interactive)
+  (ivy-become-function 'counsel-M-x))
 
 (defun ivy-build-tramp-name (x)
   "Reconstruct X into a path.
